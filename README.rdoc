@@ -1,28 +1,37 @@
 == README
+The task is to create an Online Bookshelf.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+App should contain two pages:
 
-Things you may want to cover:
+1. Page where an administrator will be able to add new books to the bookshelf. Books should have a title, author and cover photo.
 
-* Ruby version
+2. Page where a user can choose books from all the books added by the administrator. This page should be divided into two sections:
 
-* System dependencies
+a) all books
 
-* Configuration
+b) books chosen by user
 
-* Database creation
+Every time user visits his bookshelf, he should see books chosen by him last time (and be able to add more books and remove those selected before).
 
-* Database initialization
+Users should be identified by unique ID.
 
-* How to run the test suite
+Web version: A user should be able to visit his or her bookshelf by adding his or her USER_ID to page URL e.g. http://mydomain/bookshelves/USER_01.
 
-* Services (job queues, cache servers, search engines, etc.)
+Mobile version: A user should be able to visit his or her bookshelf by selecting his name from list of all users.
 
-* Deployment instructions
+Requirements:
 
-* ...
+    use Rails or Sinatra for web version or iOS for mobile version,
+
+    use any database you like (MySQL, PostgreSQL, MongoDB, Redis or any other),
+
+    write tests,
+
+    do it yourself.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Optional:
+
+    make the app beautiful,
+
+    improve UX using AJAX/JS/jQuery or other technologies,
