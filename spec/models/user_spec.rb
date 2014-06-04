@@ -21,6 +21,17 @@ describe User do
       expect(user).not_to be_valid 
     end
   end
+  context 'is valid' do
+    it 'and is admin if there is no users in database' do
+      user.save
+      expect(user.admin).to be_truthy
+    end
+    it 'and is not admin if there is any user in database' do
+      user.save
+      user2 = create(:user, email: "user2@example.com")
+      expect(user2.admin).to be_falsey
+    end
+  end
 
   context 'has his own bookshelf which'
     it 'is not nil' do
