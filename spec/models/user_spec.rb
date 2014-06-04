@@ -10,15 +10,26 @@ describe User do
   it { should have_many(:books).through(:bookcase) }
 
   subject(:user) { build(:user) }
-  context 'is invalid because email is' do
-    it 'not unique' do
+  context 'is invalid because' do
+    it 'email is not unique' do
       user.save
       user2 = build(:user, email: 'user@example.com')
       expect(user2).not_to be_valid 
     end
-    it 'not present' do
+    it 'email is not present' do
       user.email = nil
       expect(user).not_to be_valid 
     end
   end
+
+  context 'has his own bookshelf which'
+    it 'is not nil' do
+      user.save
+      expect(user.bookcase).not_to be_nil
+    end
+    it 'has proper name' do
+      user = build(:user, email: 'user@example.com')
+      user.save
+      expect(user.bookcase.name).to eq("user@example.com's bookshelf")
+    end
 end
