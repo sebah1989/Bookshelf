@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   expose(:book, attributes: :book_params)
+  expose(:books) { Book.all }
   def new
     
   end

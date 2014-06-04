@@ -11,9 +11,8 @@ describe "New book page" do
     visit '/books/new'
     fill_in('Title', with: 'Latarnik')
     fill_in('Author', with: 'Henryk Sienkiewicz')
-    fill_in('Cover photo', with: 'http://hatteria.pl/images/sienkiewicz_latarnik.jpg')
     click_button('Create Book')
-    expect(page).to have_content "Created Latarnik book!"
+    expect(page).to have_content "Title: Latarnik"
   end
   
 end
