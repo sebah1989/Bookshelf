@@ -1,1 +1,6 @@
 %h1 Create new book
+= simple_form_for(book, html: {class: 'form-horizontal' }) do |f|
+  = f.input :title
+  = f.input :author
+  = f.input :cover_photo
+  = f.button :submit

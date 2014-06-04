@@ -22,6 +22,7 @@ gem 'haml-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem 'simple_form'
 gem 'twitter-bootstrap-rails'
+gem 'decent_exposure'
 # Use unicorn as the app server
 # gem 'unicorn'
 
