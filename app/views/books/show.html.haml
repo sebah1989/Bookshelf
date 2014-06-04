@@ -1,1 +1,4 @@
-%h1 "Created #{book.title} book!"
+%h1= "Created #{book.title} book!"
+%h3= "Title: #{book.title}"
+%h3= "Author: #{book.author}"
+= image_tag(book.cover_photo, height: '600', width: '300')
