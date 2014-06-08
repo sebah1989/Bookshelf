@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
-  resources :books
-  resources :bookcase, only: [:show]
-  resources :users
   
+  resources :bookcases, only: [:show] do
+    resources :books do
+      member do
+        post :add_to_bookshelf
+        post :remove_from_bookshelf
+      end
+    end
+  end
+  resources :users
+  resources :books
   resources :sessions do
   end
   post 'sessions/new' => 'sessions#create'

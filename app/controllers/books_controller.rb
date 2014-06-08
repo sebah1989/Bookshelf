@@ -1,12 +1,15 @@
 class BooksController < ApplicationController
+  expose(:books)
   expose(:book, attributes: :book_params)
-  expose(:books) { Book.all }
+  expose(:bookcase) { Bookcase.find(params[:bookcase_id])} 
+  expose(:bookcase_book) { Book.find(params[:id]) }
+  
   def new
     
   end
 
   def create
-    if book.save
+    if bookcase.books.create(book_params)
       redirect_to book
     else
       render :new
@@ -14,7 +17,37 @@ class BooksController < ApplicationController
   end
 
   def index
-    
+  end
+  
+  def show
+  end
+  
+  def edit
+  end
+  
+  def update
+    if book.update_attributes(book_params)
+      redirect_to book
+    else
+      render :edit
+    end
+  end
+  def destroy
+    book.delete
+    redirect_to books_path
+  end
+  def add_to_bookshelf
+    bookcase.books << bookcase_book
+    if bookcase.save
+      redirect_to bookcase
+    else
+      redirect_to books_path
+    end
+  end
+
+  def remove_from_bookshelf
+    bookcase.books.delete(bookcase_book)
+    redirect_to bookcase
   end
 
   private

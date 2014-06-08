@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter :is_signed_in?, only: [:new, :create]
   expose(:user, attributes: :user_params)
   
   def new

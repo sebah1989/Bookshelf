@@ -1,4 +1,8 @@
-= simple_form_for sessions_path do |f|
-  = f.input :email
-  = f.input :password
-  = f.button :submit
+.form-signin
+  %h2.form-signin-heading= 'Please Sign in!'
+  = form_for sessions_path, class: 'form-horizontal' do |f|
+    .form-group
+      = f.text_field :email, class: 'form-control', placeholder: "Email..."
+    .form-group
+      = f.text_field :password, class: 'form-control', placeholder: "Password..."
+    = f.button :submit, class: 'btn btn-primary', type: 'submit'

@@ -1,0 +1,1 @@
+Rails.application.config.assets.precompile += %w( sign_in.css )

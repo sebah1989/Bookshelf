@@ -1,0 +1,17 @@
+%h1= bookcase.name
+%table.table
+  %tr
+    %td= 'Title'
+    %td= 'Author'
+  - bookcase_books.each do |book|
+    %tr
+      %td= link_to book.title, bookcase_book_path(bookcase,book)
+      %td= book.author
+      %td= link_to 'remove from bookshelf', remove_from_bookshelf_bookcase_book_path(bookcase,book), method: :post
+-if current_user.admin
+  %h3= 'Add new book to bookshelf'
+  = simple_form_for [bookcase, bookcase.books.build] do |f|
+    = f.input :title
+    = f.input :author
+    = f.input :cover_photo
+    = f.button :submit
