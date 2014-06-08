@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  expose(:books)
+  expose(:books) { Book.page params[:page] }
   expose(:book, attributes: :book_params)
   expose(:bookcase) { Bookcase.find(params[:bookcase_id])} 
   expose(:bookcase_book) { Book.find(params[:id]) }

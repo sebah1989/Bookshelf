@@ -24,6 +24,7 @@ gem 'simple_form'
 gem 'twitter-bootstrap-rails'
 gem 'decent_exposure'
 gem 'carrierwave'
+gem 'kaminari'
 # Use unicorn as the app server
 # gem 'unicorn'
 

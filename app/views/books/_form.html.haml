@@ -1,0 +1,6 @@
+= simple_form_for(book, html: {class: 'form-horizontal', multipart: :true }) do |f|
+  = f.input :title
+  = f.input :author
+  = f.input :cover_photo
+  = f.hidden_field :cover_photo_cache
+  = f.button :submit
