@@ -1,11 +1,10 @@
 class BooksController < ApplicationController
   expose(:books) { Book.page params[:page] }
   expose(:book, attributes: :book_params)
-  expose(:bookcase) { Bookcase.find(params[:bookcase_id]) if params[:bookcase_id] } 
+  expose(:bookcase)
   expose(:bookcase_book) { Book.find(params[:id]) }
   
   def new
-    
   end
 
   def create
@@ -36,10 +35,12 @@ class BooksController < ApplicationController
       render :edit
     end
   end
+
   def destroy
     book.delete
     redirect_to books_path
   end
+
   def add_to_bookshelf
     if !bookcase.books.include?(bookcase_book)
       bookcase.books << bookcase_book
@@ -54,12 +55,14 @@ class BooksController < ApplicationController
   end
 
   def remove_from_bookshelf
-    bookcase.books.delete(bookcase_book)
+    if bookcase.books.include?(bookcase_book)
+      bookcase.books.delete(bookcase_book)
+    end
     redirect_to bookcase
   end
 
   private
   def book_params
-    params.require(:book).permit(:title, :author, :cover_photo, :cover_photo_cache)
+    params.require(:book).permit(:title, :author, :cover_photo, :boocase_id)
   end
 end

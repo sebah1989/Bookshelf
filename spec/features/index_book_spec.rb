@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe "Index books page" do
+  before(:each) do
+    create(:user)
+    visit '/login'
+    within(".form-signin") do
+      fill_in 'Email...', :with => 'user@example.com'
+      fill_in 'Password...', :with => 'secret'
+    end
+    click_button 'submit'
+  end
+    
   it 'has proper content' do
     create(:book, title: 'Krzyzacy')
     create(:book, title: 'Potop')

@@ -8,6 +8,8 @@ describe User do
   it { should be_valid }
   it { should have_one(:bookcase) }
   it { should have_many(:books).through(:bookcase) }
+  it { should validate_presence_of(:email) }
+  it { should validate_uniqueness_of(:email) }
 
   subject(:user) { build(:user) }
   context 'is invalid because' do
@@ -19,6 +21,10 @@ describe User do
     it 'email is not present' do
       user.email = nil
       expect(user).not_to be_valid 
+    end
+    it 'password is not present' do
+      user2 = build(:user, password: '')
+      expect(user2).not_to be_valid 
     end
   end
   context 'is valid' do

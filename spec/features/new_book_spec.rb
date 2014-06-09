@@ -1,6 +1,15 @@
 require 'spec_helper'
 
 describe "New book page" do
+  before(:each) do
+    create(:user)
+    visit '/login'
+    within(".form-signin") do
+      fill_in 'Email...', :with => 'user@example.com'
+      fill_in 'Password...', :with => 'secret'
+    end
+    click_button 'submit'
+  end
 
   it "has proper content" do
     visit '/books/new'
@@ -14,5 +23,4 @@ describe "New book page" do
     click_button('Create Book')
     expect(page).to have_content "Title: Latarnik"
   end
-  
 end

@@ -5,8 +5,10 @@ class User < ActiveRecord::Base
   before_create :set_admin
   after_create :create_user_bookcase
 
-  validates_uniqueness_of :email
-  validates_presence_of :email
+  validates :email, presence: true, uniqueness: true,
+    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :password, presence: true, confirmation: true
+  validates :password_confirmation, presence: true
 
   private
     def create_user_bookcase
