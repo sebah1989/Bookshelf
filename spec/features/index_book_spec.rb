@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe "Index books page" do
+  let(:user) { create(:user) }
   before(:each) do
-    create(:user)
+    user
     visit '/login'
     within(".form-signin") do
       fill_in 'Email...', :with => 'user@example.com'
@@ -19,5 +20,19 @@ describe "Index books page" do
     expect(page).to have_content 'Krzyzacy'
     expect(page).to have_content 'Potop'
     expect(page).to have_content 'Ogniem i mieczem'
+  end
+
+  context "when user" do
+    it "is admin he can see add new book form" do
+      user.update_attributes(admin: true)
+      visit "/books"
+      expect(page).to have_content "Create new book"
+    end
+
+    it "is not admin he can't see add new book form" do
+      user.update_attributes(admin: false)
+      visit "/books"
+      expect(page).not_to have_content "Create new book"
+    end
   end
 end

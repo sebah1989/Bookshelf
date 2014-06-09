@@ -26,13 +26,13 @@ describe "Show bookcase page" do
   end
 
   context "when user" do
-    it "is admin he can see add new book form" do
+    it "is admin he can see add new book to bookshelf form" do
       user.update_attributes(admin: true)
       visit "/bookcases/#{user.bookcase.id}"
       expect(page).to have_content "Add new book to bookshelf"
     end
 
-    it "is not admin he can't see add new book form" do
+    it "is not admin he can't see add new book to bookshelf form" do
       user.update_attributes(admin: false)
       visit "/bookcases/#{user.bookcase.id}"
       expect(page).not_to have_content "Add new book to bookshelf"
