@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
   layout 'sign_in'
   skip_before_filter :is_signed_in?, only: [:new, :create]
+  
   def new
-    
   end
   
   def create
@@ -17,6 +17,6 @@ class SessionsController < ApplicationController
 
   def delete
     session[:user_id] = nil
-    redirect_to books_path
+    redirect_to root_path
   end
 end
