@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   expose(:books) { Book.page params[:page] }
   expose(:book, attributes: :book_params)
-  expose(:bookcase) { Bookcase.find(params[:bookcase_id])} 
+  expose(:bookcase) { Bookcase.find(params[:bookcase_id]) if params[:bookcase_id] } 
   expose(:bookcase_book) { Book.find(params[:id]) }
   
   def new
@@ -9,7 +9,11 @@ class BooksController < ApplicationController
   end
 
   def create
-    if bookcase.books.create(book_params)
+    if bookcase && book.save
+      bookcase.books << book
+      bookcase.save
+      redirect_to book
+    elsif book.save
       redirect_to book
     else
       render :new
@@ -37,9 +41,13 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
   def add_to_bookshelf
-    bookcase.books << bookcase_book
-    if bookcase.save
-      redirect_to bookcase
+    if !bookcase.books.include?(bookcase_book)
+      bookcase.books << bookcase_book
+      if bookcase.save
+        redirect_to bookcase
+      else
+        redirect_to books_path
+      end
     else
       redirect_to books_path
     end
