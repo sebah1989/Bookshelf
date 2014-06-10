@@ -32,20 +32,20 @@ class BooksController < ApplicationController
   end
   
   def update
-    respond_to do |format|
-      if book.update_attributes(book_params)
-        format.html { redirect_to book }
-        format.js 
-      else
-        format.html { render :edit }
-        format.js
-      end
+    if book.update_attributes(book_params)
+      redirect_to book
+    else
+      render :edit
     end
   end
 
   def destroy
+    @id_deleted = book.id
     book.delete
-    redirect_to books_path
+    respond_to do |format|
+      format.html { redirect_to books_path }
+      format.js
+    end
   end
 
   def add_to_bookshelf
