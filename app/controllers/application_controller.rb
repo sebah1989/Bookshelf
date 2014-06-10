@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  skip_before_filter :verify_authenticity_token
   helper_method :current_user
   before_filter :is_signed_in?
   # Prevent CSRF attacks by raising an exception.
