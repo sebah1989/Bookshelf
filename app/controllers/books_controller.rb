@@ -1,21 +1,24 @@
 class BooksController < ApplicationController
   expose(:books) { Book.page params[:page] }
   expose(:book, attributes: :book_params)
-  expose(:bookcase)
+  expose(:bookcase) { Bookcase.find(params[:bookcase_id]) if params[:bookcase_id] }
   expose(:bookcase_book) { Book.find(params[:id]) }
-  
   def new
   end
 
   def create
-    if bookcase && book.save
-      bookcase.books << book
-      bookcase.save
-      redirect_to book
-    elsif book.save
-      redirect_to book
-    else
-      render :new
+    respond_to do |format|
+      if bookcase && book.save
+        bookcase.books << book
+        bookcase.save
+        format.js
+        format.html { redirect_to book }
+      elsif book.save
+        format.js
+        format.html { redirect_to book }
+      else
+        format.html { render :new }
+      end
     end
   end
 
@@ -29,10 +32,14 @@ class BooksController < ApplicationController
   end
   
   def update
-    if book.update_attributes(book_params)
-      redirect_to book
-    else
-      render :edit
+    respond_to do |format|
+      if book.update_attributes(book_params)
+        format.html { redirect_to book }
+        format.js 
+      else
+        format.html { render :edit }
+        format.js
+      end
     end
   end
 
@@ -63,6 +70,6 @@ class BooksController < ApplicationController
 
   private
   def book_params
-    params.require(:book).permit(:title, :author, :cover_photo, :boocase_id)
+    params.require(:book).permit(:title, :author, :cover_photo, :cover_photo_cache, :boocase_id)
   end
 end

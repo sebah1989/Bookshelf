@@ -1,5 +1,6 @@
 %h1 Edit book
-= render 'form'
+= simple_form_for(book, html: {class: 'form-horizontal', multipart: :true }) do |f|
+  = render 'form', f: f
 = link_to "All books", books_path
 |
 = link_to "Show book", book
