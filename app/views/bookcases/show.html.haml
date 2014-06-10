@@ -5,10 +5,10 @@
     %td= 'Author'
   = paginate bookcase_books
   - bookcase_books.each do |book|
-    %tr
+    %tr{id: "bookcase_book_#{book.id}"}
       %td= link_to book.title, bookcase_book_path(bookcase,book)
       %td= book.author
-      %td= link_to 'remove from bookshelf', remove_from_bookshelf_bookcase_book_path(bookcase,book), method: :post
+      %td= button_to 'remove from bookshelf', remove_from_bookshelf_bookcase_book_path(bookcase,book), remote: true, method: :post
 -if current_user.admin
   %h3= 'Add new book to bookshelf'
   = simple_form_for([bookcase, bookcase.books.build], html: {class: 'form-horizontal', multipart: :true }, remote: true) do |f|

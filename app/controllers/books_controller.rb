@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  expose(:books) { Book.page params[:page] }
+  expose(:books) { Book.order(:title).page params[:page] }
   expose(:book, attributes: :book_params)
   expose(:bookcase) { Bookcase.find(params[:bookcase_id]) if params[:bookcase_id] }
   expose(:bookcase_book) { Book.find(params[:id]) }
@@ -72,10 +72,16 @@ class BooksController < ApplicationController
   end
 
   def remove_from_bookshelf
-    if bookcase.books.include?(bookcase_book)
-      bookcase.books.delete(bookcase_book)
+    #variable for coffescript
+    @removed_book_id = nil
+    respond_to do |format|
+      if bookcase.books.include?(bookcase_book)
+        @removed_book_id = bookcase_book.id
+        bookcase.books.delete(bookcase_book)
+      end
+      format.html { redirect_to bookcase }
+      format.js
     end
-    redirect_to bookcase
   end
 
   private
