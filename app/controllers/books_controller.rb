@@ -49,15 +49,25 @@ class BooksController < ApplicationController
   end
 
   def add_to_bookshelf
-    if !bookcase.books.include?(bookcase_book)
-      bookcase.books << bookcase_book
-      if bookcase.save
-        redirect_to bookcase
+    #two variables for coffescript
+    @saved = false
+    @already_exists = false
+    respond_to do |format|
+      if !bookcase.books.include?(bookcase_book)
+        bookcase.books << bookcase_book
+          if bookcase.save
+            @saved = true
+            format.html { redirect_to bookcase }
+            format.js
+          else
+            format.html { redirect_to books_path }
+            format.js
+          end
       else
-        redirect_to books_path
+        @already_exists = true
+        format.html { redirect_to books_path }
+        format.js
       end
-    else
-      redirect_to books_path
     end
   end
 
