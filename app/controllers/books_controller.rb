@@ -3,6 +3,7 @@ class BooksController < ApplicationController
   expose(:book, attributes: :book_params)
   expose(:bookcase) { Bookcase.find(params[:bookcase_id]) if params[:bookcase_id] }
   expose(:bookcase_book) { Book.find(params[:id]) }
+  
   def new
   end
 
@@ -11,6 +12,8 @@ class BooksController < ApplicationController
       bookcase.books << book
       bookcase.save
       redirect_to book
+    elsif bookcase
+      redirect_to bookcase
     elsif book.save
       redirect_to book 
     else

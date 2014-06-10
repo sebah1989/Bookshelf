@@ -11,11 +11,11 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   private
-    def create_user_bookcase
-      create_bookcase({ name: "#{email}'s bookshelf" })
-    end
+  def create_user_bookcase
+    create_bookcase({ name: "#{email}'s bookshelf" })
+  end
 
-    def set_admin
-      self.admin = true if User.all.empty?
-    end
+  def set_admin
+    self.admin = true if User.all.empty?
+  end
 end

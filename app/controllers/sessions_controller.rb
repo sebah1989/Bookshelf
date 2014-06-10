@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   layout 'sign_in'
-  skip_before_filter :is_signed_in?, only: [:new, :create]
+  skip_before_action :is_signed_in?, only: [:new, :create]
   
   def new
   end
