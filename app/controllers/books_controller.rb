@@ -7,19 +7,15 @@ class BooksController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      if bookcase && book.save
-        bookcase.books << book
-        bookcase.save
-        format.js
-        format.html { redirect_to book }
-      elsif book.save
-        format.js
-        format.html { redirect_to book }
-      else
-        format.html { render :new }
-      end
-    end
+    if bookcase && book.save
+      bookcase.books << book
+      bookcase.save
+      redirect_to book
+    elsif book.save
+      redirect_to book 
+    else
+      render :new
+    end    
   end
 
   def index

@@ -11,6 +11,6 @@
       %td= button_to 'remove from bookshelf', remove_from_bookshelf_bookcase_book_path(bookcase,book), remote: true, method: :post
 -if current_user.admin
   %h3= 'Add new book to bookshelf'
-  = simple_form_for([bookcase, bookcase.books.build], html: {class: 'form-horizontal', multipart: :true }, remote: true) do |f|
+  = simple_form_for([bookcase, bookcase.books.build], html: {class: 'form-horizontal', multipart: :true }) do |f|
     = render 'books/form', f: f 
   
