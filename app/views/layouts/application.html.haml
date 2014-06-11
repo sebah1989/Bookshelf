@@ -32,6 +32,11 @@
               %li= link_to "Log out", logout_path if current_user
               %li= link_to "Create user", new_user_path if !current_user
               %li= link_to "Sign in", login_path if !current_user
+        #flash-display
+          - flash.each do |type, msg|
+            %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
+              %button.close &times;
+              = msg if msg.is_a?(String)
     .container-fluid
 
       .row-fluid

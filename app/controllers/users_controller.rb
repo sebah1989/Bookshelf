@@ -7,8 +7,10 @@ class UsersController < ApplicationController
   
   def create
     if user.save
+      flash[:notice] = "User has been created."
       redirect_to user
     else
+      flash.now[:user] = "Can't create user."
       render :new
     end
   end
@@ -21,14 +23,17 @@ class UsersController < ApplicationController
 
   def update
     if user.update_attributes(user_params)
+      flash[:notice] = "User has been updated."
       redirect_to root_path
     else 
+      flash.now[:user] = "Can't update user."
       render :edit
     end
   end
   
   def delete
     user.delete
+    flash[:notice] = "User has been deleted."
     redirect_to root_path
   end
 

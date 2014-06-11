@@ -11,12 +11,16 @@ class BooksController < ApplicationController
     if bookcase && book.save
       bookcase.books << book
       bookcase.save
+      flash[:notice] = "Book has been created."
       redirect_to book
     elsif bookcase
+      flash[:notice] = "Can't create book. Missing title or author."
       redirect_to bookcase
     elsif book.save
+      flash[:notice] = "Book has been created."
       redirect_to book 
     else
+      flash.now[:notice] = "Can't create book. Missing title or author."
       render :new
     end    
   end
@@ -32,8 +36,10 @@ class BooksController < ApplicationController
   
   def update
     if book.update_attributes(book_params)
+      flash[:notice] = "Book has been updated."
       redirect_to book
     else
+      flash.now[:error] = "Can't update book."
       render :edit
     end
   end
